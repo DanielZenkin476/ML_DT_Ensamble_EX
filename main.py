@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix
+from types import MethodType
 
 # Random seed
 seed = 100
@@ -202,7 +203,8 @@ plt.xlabel('true label')
 plt.ylabel('predicted label')
 plt.show()
 
-# now , usuing california housing data set (prices problem ) :
+#----------------------------------------------------------------------------------------------------------------------#
+# now , using california housing data set (prices problem ) :
 
 data = pd.read_csv(filepath_or_buffer="https://download.mlcc.google.com/mledu-datasets/california_housing_train.csv")
 
@@ -214,3 +216,28 @@ X = data.iloc[indexes, :-1].values
 Y = data.iloc[indexes, -1].values.reshape(-1,1)
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2, random_state=41)
 print(f'x_tr: {X_train.shape} ; y_tr: {Y_train.shape} ; x_tst: {X_test.shape} ; y_tst: {Y_test.shape}')
+
+# model
+
+regressor = DecisionTreeClassifier(min_samples_split=3,max_depth=3)
+
+'''
+I built a descision tree for classification, not regression. here the goal is to lower the variance of data points in each node 
+'''
+def variance_reduction(self,parent,l_child,r_child):
+    ''' function computes variance reduction'''
+    w_1 = len(l_child) / len(parent)
+    w_2 = len(r_child) / len(parent)
+    reduction = reduction = np.var(parent) - (w_1 * np.var(l_child) + w_2 * np.var(r_child))
+    return  reduction
+# here, each leaf represents the final prediction
+def mean_val(self,Y):
+    '''computes leaf node'''
+    val = np.mean(Y)
+    return val
+
+regressor.information_gain = MethodType(variance_reduction , regressor)#information_gain: Bound to variance_reduction for computing the variance reduction at each split
+regressor.calculate_leaf_value = MethodType(mean_val, regressor)#calculate_leaf_value: Bound to mean_value for computing the mean prediction at each leaf node.
+
+regressor.fit(X_train,Y_train)
+regressor.print_tree()
