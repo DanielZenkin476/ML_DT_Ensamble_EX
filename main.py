@@ -202,3 +202,15 @@ plt.xlabel('true label')
 plt.ylabel('predicted label')
 plt.show()
 
+# now , usuing california housing data set (prices problem ) :
+
+data = pd.read_csv(filepath_or_buffer="https://download.mlcc.google.com/mledu-datasets/california_housing_train.csv")
+
+data["median_house_value"] /= 1000.0# decrease by 1K factor for ease of use, need to remember to add if showing prices
+print(data)
+#train/test splits:
+indexes = np.random.choice(len(data), size = 1000, replace = False ) # gives 1000 different item indexes from data
+X = data.iloc[indexes, :-1].values
+Y = data.iloc[indexes, -1].values.reshape(-1,1)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2, random_state=41)
+print(f'x_tr: {X_train.shape} ; y_tr: {Y_train.shape} ; x_tst: {X_test.shape} ; y_tst: {Y_test.shape}')
