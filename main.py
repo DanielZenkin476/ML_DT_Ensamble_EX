@@ -7,7 +7,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, mean_squared_error
 from types import MethodType
 
 # Random seed
@@ -235,9 +235,12 @@ def mean_val(self,Y):
     '''computes leaf node'''
     val = np.mean(Y)
     return val
-
+#now to change the function
 regressor.information_gain = MethodType(variance_reduction , regressor)#information_gain: Bound to variance_reduction for computing the variance reduction at each split
 regressor.calculate_leaf_value = MethodType(mean_val, regressor)#calculate_leaf_value: Bound to mean_value for computing the mean prediction at each leaf node.
-
+#fit model and display tree
 regressor.fit(X_train,Y_train)
 regressor.print_tree()
+#calc pred and MSE
+Y_pred = regressor.predict(X_test)
+print("MSE is : " ,np.sqrt(mean_squared_error(Y_pred,Y_test)))
