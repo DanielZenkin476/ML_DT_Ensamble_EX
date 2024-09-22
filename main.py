@@ -244,3 +244,28 @@ regressor.print_tree()
 #calc pred and MSE
 Y_pred = regressor.predict(X_test)
 print("MSE is : " ,np.sqrt(mean_squared_error(Y_pred,Y_test)))
+
+#now to implement ensamble - with bootstrapping and without
+
+def Ensemble(method, ensamble_size=3, k =5 ):
+    random_forest = np.zeros(shape=[len(Y_test),ensamble_size])
+    for id in range(ensamble_size):
+        if method == "bootstrapping":
+           ids = list(set(np.random.choice(len(X_train), len(X_train), replace=True)))
+           X_train_tree, Y_train_tree = X_train[ids], Y_train[ids]
+        elif method == "splitting":
+            X_train_tree, _, Y_train_tree, _ = train_test_split(X_train, Y_train, test_size=.2)
+        else:
+            return
+        model = DecisionTreeClassifier(min_samples_split=3, max_depth=3)
+        model.information_gain = MethodType(variance_reduction, model)
+        model.calculate_leaf_value = MethodType(mean_val, model)
+        model.fit(X_train_tree, Y_train_tree)
+        random_forest[:, id] = model.predict(X_test)
+    Y_pred_tree = np.mean(random_forest, 1)
+    print(f'Ensamble error for method {method} is: {np.sqrt(mean_squared_error(Y_test, Y_pred_tree))}')
+
+# without bootstrapping
+Ensemble("splitting")
+# with bootstrapping
+Ensemble("bootstrapping")

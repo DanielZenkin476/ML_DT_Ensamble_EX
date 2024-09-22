@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b0c89e26-30c8-4e4f-a497-1861ee0bd8ad" name="Changes" comment="added new functions to make class tree work as regressor tree, printed tree after training">
+    <list default="true" id="b0c89e26-30c8-4e4f-a497-1861ee0bd8ad" name="Changes" comment="calc pred and mse">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +104,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727023548706</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="calc pred and mse">
+      <option name="closed" value="true" />
+      <created>1727023735254</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1727023735254</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -111,7 +120,8 @@
     <MESSAGE value="added DescisionTreeClassifier, test with 4 split and 4 depth" />
     <MESSAGE value="new section - loading from california_housing_data set, data split, ready for model implementation" />
     <MESSAGE value="added new functions to make class tree work as regressor tree, printed tree after training" />
-    <option name="LAST_COMMIT_MESSAGE" value="added new functions to make class tree work as regressor tree, printed tree after training" />
+    <MESSAGE value="calc pred and mse" />
+    <option name="LAST_COMMIT_MESSAGE" value="calc pred and mse" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
